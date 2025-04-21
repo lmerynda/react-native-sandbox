@@ -33,7 +33,9 @@ const GroceryList = () => {
     const ensureDefaultList = async () => {
       try {
         const lists = await loadLists();
-        const defaultListExists = lists.some((list) => list.id === DEFAULT_LIST_ID);
+        const defaultListExists = lists.some(
+          (list) => list.id === DEFAULT_LIST_ID
+        );
 
         if (!defaultListExists) {
           const defaultList: ListInfo = {

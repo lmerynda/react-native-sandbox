@@ -39,11 +39,11 @@ export default function ListsScreen({ navigation }: { navigation: any }) {
       const newList: ListInfo = {
         id: Date.now().toString(),
         title: newListTitle.trim(),
-        createdAt: Date.now()
+        createdAt: Date.now(),
       };
 
       const updatedLists = [...lists, newList];
-      
+
       try {
         await saveLists(updatedLists);
         setLists(updatedLists);
@@ -58,25 +58,21 @@ export default function ListsScreen({ navigation }: { navigation: any }) {
   };
 
   const handleDeleteList = (listId: string) => {
-    Alert.alert(
-      "Delete List",
-      "Are you sure you want to delete this list?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          onPress: async () => {
-            try {
-              await deleteList(listId);
-              setLists(lists.filter(list => list.id !== listId));
-            } catch (error) {
-              Alert.alert("Error", "Failed to delete list");
-            }
-          },
-          style: "destructive"
-        }
-      ]
-    );
+    Alert.alert("Delete List", "Are you sure you want to delete this list?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        onPress: async () => {
+          try {
+            await deleteList(listId);
+            setLists(lists.filter((list) => list.id !== listId));
+          } catch (error) {
+            Alert.alert("Error", "Failed to delete list");
+          }
+        },
+        style: "destructive",
+      },
+    ]);
   };
 
   const openListDetail = (listId: string, listTitle: string) => {
@@ -96,19 +92,19 @@ export default function ListsScreen({ navigation }: { navigation: any }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>My Lists</Text>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.addButton}
           onPress={() => setModalVisible(true)}
         >
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
       </View>
-      
+
       <FlatList
         data={lists}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.listItem}
             onPress={() => openListDetail(item.id, item.title)}
           >

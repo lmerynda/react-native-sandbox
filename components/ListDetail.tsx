@@ -12,7 +12,13 @@ import {
 } from "react-native";
 import { loadListItems, saveListItems } from "../utils/storage";
 
-export default function ListDetail({ route, navigation }: { route: any, navigation: any }) {
+export default function ListDetail({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) {
   const { listId, listTitle } = route.params;
   const [items, setItems] = useState<string[]>([]);
   const [text, setText] = useState("");
@@ -42,7 +48,7 @@ export default function ListDetail({ route, navigation }: { route: any, navigati
           setIsSaving(false);
         }
       };
-      
+
       saveItems();
     }
   }, [items, isLoading, listId]);
@@ -69,15 +75,15 @@ export default function ListDetail({ route, navigation }: { route: any, navigati
   const removeItem = (index: number) => {
     setItems((prev) => prev.filter((_, i) => i !== index));
   };
-  
+
   const handleClearAll = () => {
     Alert.alert(
       "Clear All Items",
       "Are you sure you want to clear all items from this list?",
       [
-        { 
+        {
           text: "Cancel",
-          style: "cancel"
+          style: "cancel",
         },
         {
           text: "Clear",
@@ -89,8 +95,8 @@ export default function ListDetail({ route, navigation }: { route: any, navigati
               Alert.alert("Error", "Failed to clear list items");
             }
           },
-          style: "destructive"
-        }
+          style: "destructive",
+        },
       ]
     );
   };
@@ -109,7 +115,7 @@ export default function ListDetail({ route, navigation }: { route: any, navigati
       <View style={styles.headerContainer}>
         {isSaving && <ActivityIndicator size="small" color="#0000ff" />}
       </View>
-      
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -120,7 +126,7 @@ export default function ListDetail({ route, navigation }: { route: any, navigati
         />
         <Button title="Add" onPress={addItem} />
       </View>
-      
+
       <FlatList
         data={items.map((value, index) => ({ key: index.toString(), value }))}
         renderItem={({ item }) => (
@@ -135,12 +141,12 @@ export default function ListDetail({ route, navigation }: { route: any, navigati
           <Text style={styles.emptyText}>No items in this list. Add some!</Text>
         }
       />
-      
+
       {items.length > 0 && (
         <View style={styles.clearButtonContainer}>
-          <Button 
-            title="Clear All Items" 
-            onPress={handleClearAll} 
+          <Button
+            title="Clear All Items"
+            onPress={handleClearAll}
             color="red"
           />
         </View>
@@ -150,8 +156,8 @@ export default function ListDetail({ route, navigation }: { route: any, navigati
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
+  container: {
+    flex: 1,
     padding: 20,
     backgroundColor: "#f8f8f8",
   },
@@ -161,8 +167,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
   },
-  inputContainer: { 
-    flexDirection: "row", 
+  inputContainer: {
+    flexDirection: "row",
     marginBottom: 20,
   },
   input: {
@@ -196,10 +202,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loadingText: { marginTop: 10, fontSize: 16 },
-  emptyText: { 
-    textAlign: "center", 
-    marginTop: 20, 
-    fontSize: 16, 
-    color: "#888" 
+  emptyText: {
+    textAlign: "center",
+    marginTop: 20,
+    fontSize: 16,
+    color: "#888",
   },
 });
