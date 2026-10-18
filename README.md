@@ -48,3 +48,22 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## Dependency and SDK compatibility
+
+Use Node.js 24 or newer. The app uses Expo SDK 58, React Native 0.88, and React 19.3;
+keep Expo-managed native packages aligned with `npx expo install --check`.
+
+```sh
+npm ci
+npm run typecheck
+npm run build:web
+```
+
+The project has no automated Jest tests yet. After an SDK update, rebuild the
+Android/iOS development application and verify list editing and saved data on a
+device. A successful web export does not replace native testing.
+
+The scoped dependency overrides retain current `js-yaml`, UUID, and Babel/Jest
+implementations for older upstream callers. Recheck these overrides when those
+callers update their own dependency ranges.
